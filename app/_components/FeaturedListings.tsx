@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FEATURED_LISTINGS, LISTING_TYPE_LABEL, formatPrice, type Listing } from "@/lib/mock-data";
+import { LISTING_TYPE_LABEL, formatPrice, type Listing } from "@/lib/listing-types";
+import { getLatestListings } from "@/lib/listings";
 import { getModel } from "@/lib/models";
 
 const TYPE_STYLE: Record<Listing["type"], string> = {
@@ -33,7 +34,8 @@ export function ListingCard({ l }: { l: Listing }) {
   );
 }
 
-export function FeaturedListings() {
+export async function FeaturedListings() {
+  const listings = await getLatestListings(6);
   return (
     <section className="bg-slate-50">
       <div className="container-page py-16">
@@ -46,11 +48,17 @@ export function FeaturedListings() {
             Бүгдийг харах →
           </Link>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURED_LISTINGS.map((l) => (
-            <ListingCard key={l.id} l={l} />
-          ))}
-        </div>
+        {listings.length === 0 ? (
+          <p className="mt-8 rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500">
+            Одоогоор зар алга байна.
+          </p>
+        ) : (
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {listings.map((l) => (
+              <ListingCard key={l.id} l={l} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MODELS, getFamily, getModel, type BatterySpec } from "@/lib/models";
-import { FEATURED_LISTINGS } from "@/lib/mock-data";
+import { getListingsByModel } from "@/lib/listings";
 import { ListingCard } from "@/app/_components/FeaturedListings";
+
+// Зарууд DB-ээс ирдэг тул 60 секунд тутам шинэчилнэ (ISR)
+export const revalidate = 60;
 
 // Бүх загварын хуудсыг build хийх үед бэлдэнэ
 export function generateStaticParams() {
@@ -146,7 +149,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
   if (!model) notFound();
 
   const family = getFamily(model);
-  const listings = FEATURED_LISTINGS.filter((l) => l.modelSlug === model.slug);
+  const listings = await getListingsByModel(model.slug);
   const hasUnverified = model.generations.some((g) => g.batteries.some((b) => b.spec.check));
 
   return (
