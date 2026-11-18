@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthNav } from "@/app/_components/AuthNav";
 
 const NAV = [
   { href: "/listings", label: "Зарууд" },
@@ -24,9 +25,7 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <Link href="/sign-in" className="hover:text-[#138a6e]">
-            Нэвтрэх
-          </Link>
+          <AuthNav />
           <Link
             href="/listings/new"
             className="rounded-lg bg-[#138a6e] px-4 py-2 font-semibold text-white hover:bg-[#0f6f58]"
@@ -41,11 +40,12 @@ export function Header() {
             Цэс
           </summary>
           <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
-            {[...NAV, { href: "/sign-in", label: "Нэвтрэх" }].map((n) => (
+            {NAV.map((n) => (
               <Link key={n.href} href={n.href} className="block rounded-lg px-3 py-2 text-sm hover:bg-slate-100">
                 {n.label}
               </Link>
             ))}
+            <AuthNav mobile />
             <Link
               href="/listings/new"
               className="mt-1 block rounded-lg bg-[#138a6e] px-3 py-2 text-center text-sm font-semibold text-white"

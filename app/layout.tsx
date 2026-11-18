@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { mnMN } from "@clerk/localizations";
 import "./globals.css";
 import { Header } from "@/app/_components/Header";
 import { Footer } from "@/app/_components/Footer";
@@ -23,9 +25,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="mn" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-slate-900">
-        <Header />
-        {children}
-        <Footer />
+        <ClerkProvider localization={mnMN} signInUrl="/sign-in" signUpUrl="/sign-up">
+          <Header />
+          {children}
+          <Footer />
+        </ClerkProvider>
       </body>
     </html>
   );

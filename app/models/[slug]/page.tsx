@@ -324,7 +324,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
       )}
 
       {/* Энэ загварын зарууд */}
-      <section className="mt-12">
+      <section id="listings" className="mt-12 scroll-mt-20">
         <div className="flex items-end justify-between gap-4">
           <h2 className="text-2xl font-bold">{model.name} зарууд</h2>
           <Link href={`/listings?model=${model.slug}`} className="text-sm font-semibold text-[#138a6e] hover:underline">
