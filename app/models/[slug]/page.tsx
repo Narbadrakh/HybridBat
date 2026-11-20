@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { MODELS, getFamily, getModel, type BatterySpec } from "@/lib/models";
 import { getListingsByModel } from "@/lib/listings";
 import { ListingCard } from "@/app/_components/FeaturedListings";
+import { BatteryDiagram } from "@/app/_components/BatteryDiagram";
+import { ModelPhoto } from "@/app/_components/ModelPhoto";
 
 // Зарууд DB-ээс ирдэг тул 60 секунд тутам шинэчилнэ (ISR)
 export const revalidate = 60;
@@ -167,21 +169,37 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         <span className="text-slate-900">{model.name}</span>
       </nav>
 
-      {/* Гарчиг */}
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
-        <div>
+      {/* Гарчиг + машины зураг */}
+      <div className="mt-6 grid items-center gap-6 lg:grid-cols-[1fr_minmax(0,28rem)]">
+        <div className="order-2 lg:order-1">
           <p className="text-sm font-semibold tracking-wide text-[#138a6e] uppercase">Hybrid батерей</p>
           <h1 className="mt-1 text-3xl font-extrabold md:text-4xl">{model.name}</h1>
           <p className="mt-1 text-slate-600">
             {model.years} · {model.generations.map((g) => g.code).join(", ")}
           </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-sm">
+            {model.generations.flatMap((g) =>
+              g.batteries.map((b, i) => (
+                <span key={`${g.code}-${i}`} className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">
+                  {g.code}: {b.spec.chemistry}
+                  {b.spec.voltage ? ` · ${b.spec.voltage}V` : ""}
+                </span>
+              )),
+            )}
+          </div>
+          <Link
+            href={`/listings?model=${model.slug}`}
+            className="mt-5 inline-block rounded-lg bg-[#138a6e] px-5 py-2.5 font-semibold text-white hover:bg-[#0f6f58]"
+          >
+            {model.name} зарууд харах
+          </Link>
         </div>
-        <Link
-          href={`/listings?model=${model.slug}`}
-          className="rounded-lg bg-[#138a6e] px-5 py-2.5 font-semibold text-white hover:bg-[#0f6f58]"
-        >
-          {model.name} зарууд харах
-        </Link>
+        <ModelPhoto
+          slug={model.slug}
+          name={model.name}
+          preload
+          className="order-1 aspect-[16/9] rounded-2xl border border-slate-200 lg:order-2"
+        />
       </div>
 
       {/* Ижил гэр бүлийн загварууд: оноор нь сонгоно */}
@@ -224,7 +242,11 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
             {g.batteries.map((b, i) => (
               <div key={i} className="mt-4">
                 {b.label && <h3 className="mb-1 text-sm font-semibold text-[#138a6e]">{b.label}</h3>}
-                <SpecTable spec={b.spec} />
+                <p className="mb-2 text-xs font-medium tracking-wide text-slate-500 uppercase">Ерөнхий бүтэц</p>
+                <BatteryDiagram spec={b.spec} />
+                <div className="mt-4">
+                  <SpecTable spec={b.spec} />
+                </div>
               </div>
             ))}
             {g.notes && (

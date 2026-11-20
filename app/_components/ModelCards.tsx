@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MODELS } from "@/lib/models";
+import { ModelPhoto } from "@/app/_components/ModelPhoto";
 
 export function ModelCards() {
   return (
@@ -21,14 +22,12 @@ export function ModelCards() {
             href={`/models/${m.slug}`}
             className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#138a6e] hover:shadow-md"
           >
-            {/* Зураг ирэх хүртэл: батерейны дүрс */}
-            <div className="grid h-20 place-items-center rounded-lg bg-gradient-to-br from-emerald-50 to-slate-100">
-              <svg viewBox="0 0 48 24" className="h-8 w-16 text-[#138a6e]" aria-hidden="true">
-                <rect x="1" y="3" width="42" height="18" rx="3" fill="none" stroke="currentColor" strokeWidth="2" />
-                <rect x="43" y="9" width="4" height="6" rx="1" fill="currentColor" />
-                <path d="M24 6l-6 7h5l-2 6 7-8h-5z" fill="currentColor" />
-              </svg>
-            </div>
+            <ModelPhoto
+              slug={m.slug}
+              name={m.name}
+              sizes="(min-width: 768px) 25vw, 50vw"
+              className="aspect-[16/10] rounded-lg"
+            />
             <p className="mt-3 font-semibold group-hover:text-[#138a6e]">{m.name}</p>
             <p className="text-xs text-slate-500">{m.years}</p>
           </Link>
