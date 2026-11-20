@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AuthNav } from "@/app/_components/AuthNav";
+import { ThemeToggle } from "@/app/_components/ThemeToggle";
 
 const NAV = [
   { href: "/listings", label: "Зарууд" },
@@ -9,7 +10,7 @@ const NAV = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-surface/90 backdrop-blur">
       <div className="container-page flex items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#138a6e] text-sm text-white">
@@ -26,6 +27,7 @@ export function Header() {
             </Link>
           ))}
           <AuthNav />
+          <ThemeToggle />
           <Link
             href="/listings/new"
             className="rounded-lg bg-[#138a6e] px-4 py-2 font-semibold text-white hover:bg-[#0f6f58]"
@@ -35,11 +37,13 @@ export function Header() {
         </nav>
 
         {/* Mobile: JS-гүй цэс (details/summary) */}
-        <details className="group relative md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <details className="group relative">
           <summary className="cursor-pointer list-none rounded-lg border border-slate-300 px-3 py-1.5 text-sm">
             Цэс
           </summary>
-          <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+          <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 bg-surface p-2 shadow-lg">
             {NAV.map((n) => (
               <Link key={n.href} href={n.href} className="block rounded-lg px-3 py-2 text-sm hover:bg-slate-100">
                 {n.label}
@@ -54,6 +58,7 @@ export function Header() {
             </Link>
           </div>
         </details>
+        </div>
       </div>
     </header>
   );

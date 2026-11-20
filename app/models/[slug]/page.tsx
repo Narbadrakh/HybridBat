@@ -133,7 +133,7 @@ function OptionGrid({ items }: { items: RepairOption[] }) {
   return (
     <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((o) => (
-        <div key={o.title} className="rounded-xl border border-slate-200 bg-white p-5">
+        <div key={o.title} className="rounded-xl border border-slate-200 bg-surface p-5">
           <div className="flex items-start justify-between gap-3">
             <p className="font-semibold">{o.title}</p>
             <CostBadge cost={o.cost} />
@@ -217,11 +217,11 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
                   className={`rounded-xl border px-4 py-2.5 text-left transition ${
                     active
                       ? "border-[#138a6e] bg-[#138a6e] text-white"
-                      : "border-slate-200 bg-white hover:border-[#138a6e]"
+                      : "border-slate-200 bg-surface hover:border-[#138a6e]"
                   }`}
                 >
                   <span className="block font-semibold">{f.name}</span>
-                  <span className={`block text-xs ${active ? "text-emerald-50" : "text-slate-500"}`}>{f.years}</span>
+                  <span className={`block text-xs ${active ? "text-white/80" : "text-slate-500"}`}>{f.years}</span>
                 </Link>
               );
             })}
@@ -234,7 +234,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         className={`mt-10 grid gap-6 ${model.generations.length + 1 === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}
       >
         {model.generations.map((g) => (
-          <article key={g.code} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <article key={g.code} className="rounded-2xl border border-slate-200 bg-surface p-6 shadow-sm">
             <div className="flex items-baseline justify-between gap-4">
               <h2 className="text-xl font-bold">{g.code}</h2>
               <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">{g.years}</span>
@@ -261,7 +261,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
             )}
           </article>
         ))}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="rounded-2xl border border-slate-200 bg-surface p-6">
           <h2 className="text-xl font-bold">Батерей муудаж байгаагийн шинж тэмдэг</h2>
           <ul className="mt-4 space-y-2 text-sm text-slate-700">
             {SYMPTOMS.map((s) => (

@@ -53,7 +53,7 @@ export function BatteryDiagram({ spec }: { spec: BatterySpec }) {
       <svg viewBox={`0 0 ${W} 200`} className="w-full" role="img" aria-label={`${modules} ${unit}тэй ${voltage}V батерейны схем`}>
         {/* Хөргөлтийн сэнс + агаарын урсгал */}
         <g>
-          <circle cx={fanX} cy={pack.y + pack.h / 2} r="20" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1.5" />
+          <circle cx={fanX} cy={pack.y + pack.h / 2} r="20" className="fill-slate-100 stroke-slate-400" strokeWidth="1.5" />
           {[0, 120, 240].map((a) => (
             <ellipse
               key={a}
@@ -61,24 +61,24 @@ export function BatteryDiagram({ spec }: { spec: BatterySpec }) {
               cy={pack.y + pack.h / 2 - 9}
               rx="5"
               ry="9"
-              fill="#94a3b8"
+              className="fill-slate-400"
               transform={`rotate(${a} ${fanX} ${pack.y + pack.h / 2})`}
             />
           ))}
-          <path d={`M${fanX - 22} ${pack.y + pack.h / 2} h-12`} stroke="#94a3b8" strokeWidth="2" markerEnd={`url(#${arrowId})`} />
-          <text x={fanX} y={pack.y + pack.h / 2 + 36} textAnchor="middle" fontSize="11" fill="#64748b">
+          <path d={`M${fanX - 22} ${pack.y + pack.h / 2} h-12`} className="stroke-slate-400" strokeWidth="2" markerEnd={`url(#${arrowId})`} />
+          <text x={fanX} y={pack.y + pack.h / 2 + 36} textAnchor="middle" fontSize="11" className="fill-slate-500">
             Сэнс
           </text>
         </g>
 
         <defs>
           <marker id={arrowId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M0 0L10 5L0 10z" fill="#94a3b8" />
+            <path d="M0 0L10 5L0 10z" className="fill-slate-400" />
           </marker>
         </defs>
 
         {/* Савлагаа */}
-        <rect x={pack.x} y={pack.y} width={pack.w} height={pack.h} rx="10" fill="#f8fafc" stroke="#334155" strokeWidth="2" />
+        <rect x={pack.x} y={pack.y} width={pack.w} height={pack.h} rx="10" className="fill-slate-50 stroke-slate-700" strokeWidth="2" />
 
         {/* Модуль / эсүүд */}
         {cells.map((p, i) => (
@@ -89,7 +89,7 @@ export function BatteryDiagram({ spec }: { spec: BatterySpec }) {
         <g fontSize="13" fontWeight="700">
           {[
             { cell: first, sign: "+", color: "#dc2626" },
-            { cell: last, sign: "−", color: "#1e293b" },
+            { cell: last, sign: "−", color: "#475569" },
           ].map(({ cell, sign, color }) => {
             const cy = cell.y + mh / 2;
             // Сүүлийн модуль баруун талд дуусвал (сондгой мөртэй) баруун хананаас гаргана
@@ -116,14 +116,14 @@ export function BatteryDiagram({ spec }: { spec: BatterySpec }) {
           { label: "Сервис залгуур", x: pack.x + pad + 330 },
         ].map((c) => (
           <g key={c.label}>
-            <rect x={c.x} y={compY} width="140" height="22" rx="5" fill="white" stroke="#cbd5e1" />
-            <text x={c.x + 70} y={compY + 15} textAnchor="middle" fontSize="11" fill="#334155">
+            <rect x={c.x} y={compY} width="140" height="22" rx="5" className="fill-surface stroke-slate-300" />
+            <text x={c.x + 70} y={compY + 15} textAnchor="middle" fontSize="11" className="fill-slate-700">
               {c.label}
             </text>
           </g>
         ))}
 
-        <text x={pack.x + pack.w / 2} y="194" textAnchor="middle" fontSize="12" fill="#475569">
+        <text x={pack.x + pack.w / 2} y="194" textAnchor="middle" fontSize="12" className="fill-slate-600">
           {modules} {unit} цуваа холбогдсон (могой хэлбэрээр)
         </text>
       </svg>

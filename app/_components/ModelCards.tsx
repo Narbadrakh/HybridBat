@@ -20,7 +20,7 @@ export function ModelCards() {
           <Link
             key={m.slug}
             href={`/models/${m.slug}`}
-            className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#138a6e] hover:shadow-md"
+            className="group rounded-xl border border-slate-200 bg-surface p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#138a6e] hover:shadow-md"
           >
             <ModelPhoto
               slug={m.slug}

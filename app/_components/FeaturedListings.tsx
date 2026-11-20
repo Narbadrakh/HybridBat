@@ -14,7 +14,7 @@ export function ListingCard({ l }: { l: Listing }) {
   return (
     <Link
       href={`/listings/${l.id}`}
-      className="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md"
+      className="group flex flex-col rounded-xl border border-slate-200 bg-surface p-5 shadow-sm transition hover:shadow-md"
     >
       <div className="flex items-center justify-between gap-2 text-xs">
         <span className={`rounded-full px-2.5 py-1 font-semibold ${TYPE_STYLE[l.type]}`}>

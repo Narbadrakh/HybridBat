@@ -27,7 +27,7 @@ export function Hero() {
             <h1 className="text-4xl leading-tight font-extrabold md:text-5xl">
               Hybrid батерейны засвар, сэлбэгийг нэг дор ол
             </h1>
-            <p className="mt-4 text-lg text-slate-200">
+            <p className="mt-4 text-lg text-white/85">
               Prius, Aqua, Camry Hybrid болон бусад Toyota загварын үндсэн
               батерейны засвар, сэлбэгийн зар.
             </p>

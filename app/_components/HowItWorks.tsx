@@ -12,7 +12,7 @@ export function HowItWorks() {
       <h2 className="text-center text-2xl font-bold md:text-3xl">Яаж ажилладаг вэ?</h2>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {STEPS.map((s) => (
-          <div key={s.n} className="rounded-xl border border-slate-200 bg-white p-6 text-center">
+          <div key={s.n} className="rounded-xl border border-slate-200 bg-surface p-6 text-center">
             <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-[#138a6e] text-lg font-bold text-white">
               {s.n}
             </div>
@@ -26,11 +26,11 @@ export function HowItWorks() {
       <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-2xl bg-gradient-to-r from-[#138a6e] to-emerald-700 p-8 text-white md:flex-row md:p-10">
         <div>
           <h3 className="text-2xl font-bold">Батерей зардаг эсвэл засвар хийдэг үү?</h3>
-          <p className="mt-2 text-emerald-50">Зараа үнэгүй байршуулж, мянга мянган hybrid эзэмшигчид хүрээрэй.</p>
+          <p className="mt-2 text-white/85">Зараа үнэгүй байршуулж, мянга мянган hybrid эзэмшигчид хүрээрэй.</p>
         </div>
         <Link
           href="/listings/new"
-          className="shrink-0 rounded-lg bg-white px-6 py-3 font-semibold text-[#138a6e] hover:bg-emerald-50"
+          className="shrink-0 rounded-lg bg-white px-6 py-3 font-semibold text-[#138a6e] hover:bg-[#e3f2ec]"
         >
           Зар нэмэх
         </Link>
