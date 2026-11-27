@@ -6,7 +6,15 @@ export type ListingType = ListingRow["type"];
 // UI-д хэрэгтэй талбарууд л
 export type Listing = Pick<
   ListingRow,
-  "id" | "title" | "type" | "modelSlug" | "price" | "location" | "warrantyMonths" | "createdAt"
+  | "id"
+  | "title"
+  | "type"
+  | "modelSlug"
+  | "price"
+  | "location"
+  | "warrantyMonths"
+  | "imageUrl"
+  | "createdAt"
 >;
 
 export const LISTING_TYPE_LABEL: Record<ListingType, string> = {

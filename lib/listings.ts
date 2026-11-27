@@ -12,6 +12,7 @@ const cardColumns = {
   price: listings.price,
   location: listings.location,
   warrantyMonths: listings.warrantyMonths,
+  imageUrl: listings.imageUrl,
   createdAt: listings.createdAt,
 };
 

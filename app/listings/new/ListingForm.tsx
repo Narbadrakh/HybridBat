@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { createListing, type FormState } from "./actions";
 import { LISTING_TYPE_LABEL } from "@/lib/listing-types";
 
@@ -38,6 +38,27 @@ function Field({
 export function ListingForm({ models }: { models: ModelOption[] }) {
   const [state, action, pending] = useActionState<FormState, FormData>(createListing, undefined);
   const e = state?.fieldErrors ?? {};
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<string>();
+
+  function onImageChange(ev: React.ChangeEvent<HTMLInputElement>) {
+    if (preview) URL.revokeObjectURL(preview);
+    const f = ev.target.files?.[0];
+    if (!f) {
+      setPreview(null);
+      setImageError(undefined);
+      return;
+    }
+    if (f.size > 5 * 1024 * 1024) {
+      setImageError("Зураг 5MB-аас бага байна.");
+      setPreview(null);
+      ev.target.value = "";
+      return;
+    }
+    setImageError(undefined);
+    setPreview(URL.createObjectURL(f));
+  }
 
   return (
     <form action={action} className="space-y-5">
@@ -91,6 +112,30 @@ export function ListingForm({ models }: { models: ModelOption[] }) {
           <input id="phone" name="phone" required type="tel" placeholder="99112233" className={input} />
         </Field>
       </div>
+
+      <Field
+        label="Зураг"
+        name="image"
+        error={imageError ?? e.image}
+        hint="JPG, PNG эсвэл WebP, 5MB хүртэл (заавал биш)"
+      >
+        <input
+          id="image"
+          name="image"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={onImageChange}
+          className={input}
+        />
+      </Field>
+      {preview && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={preview}
+          alt="Сонгосон зургийн урьдчилсан харалт"
+          className="aspect-[4/3] w-full max-w-sm rounded-lg border border-slate-200 object-cover"
+        />
+      )}
 
       <Field label="Тайлбар" name="description" error={e.description} hint="Модулийн байдал, баталгааны нөхцөл гэх мэт">
         <textarea id="description" name="description" rows={5} maxLength={2000} className={input} />

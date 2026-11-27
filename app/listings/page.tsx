@@ -1,23 +1,16 @@
-import Link from "next/link";
+import { ListingCard } from "@/app/_components/FeaturedListings";
 import { searchListings } from "@/lib/listings";
-import {
-  formatPrice,
-  LISTING_TYPE_LABEL,
-  type ListingType,
-} from "@/lib/listing-types";
+import { LISTING_TYPE_LABEL, type ListingType } from "@/lib/listing-types";
 
 type Props = { searchParams: Promise<Record<string, string | undefined>> };
 
-const num = (v?: string) =>
-  v && !Number.isNaN(Number(v)) ? Number(v) : undefined;
+const num = (v?: string) => (v && !Number.isNaN(Number(v)) ? Number(v) : undefined);
 
 export default async function ListingsPage({ searchParams }: Props) {
   const sp = await searchParams;
 
   const type =
-    sp.type && sp.type in LISTING_TYPE_LABEL
-      ? (sp.type as ListingType)
-      : undefined;
+    sp.type && sp.type in LISTING_TYPE_LABEL ? (sp.type as ListingType) : undefined;
 
   const items = await searchListings({
     model: sp.model || undefined,
@@ -74,23 +67,7 @@ export default async function ListingsPage({ searchParams }: Props) {
 
       <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((l) => (
-          <Link
-            key={l.id}
-            href={`/listings/${l.id}`}
-            className="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md"
-          >
-            <p className="text-xs font-semibold text-[#138a6e]">
-              {LISTING_TYPE_LABEL[l.type]}
-            </p>
-            <p className="mt-1 font-semibold">{l.title}</p>
-            <p className="mt-1 text-lg font-bold text-[#138a6e]">
-              {formatPrice(l.price)}
-            </p>
-            <p className="mt-1 text-sm text-zinc-500">
-              {l.location}
-              {l.warrantyMonths ? ` · ${l.warrantyMonths} сар баталгаа` : ""}
-            </p>
-          </Link>
+          <ListingCard key={l.id} l={l} />
         ))}
       </div>
     </div>

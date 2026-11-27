@@ -20,6 +20,8 @@ export const listings = pgTable(
     location: text("location").notNull(),
     warrantyMonths: integer("warranty_months"),
     phone: text("phone"),
+    // Supabase Storage-ийн нийтийн зургийн холбоос (заавал биш)
+    imageUrl: text("image_url"),
     status: listingStatus("status").notNull().default("active"),
     // Clerk-ийн хэрэглэгчийн id. Нэвтрэлт нэмэгдэх хүртэл хоосон (админ оруулсан зар).
     userId: text("user_id"),

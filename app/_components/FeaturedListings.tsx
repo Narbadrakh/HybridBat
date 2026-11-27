@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LISTING_TYPE_LABEL, formatPrice, type Listing } from "@/lib/listing-types";
 import { getLatestListings } from "@/lib/listings";
@@ -16,6 +17,19 @@ export function ListingCard({ l }: { l: Listing }) {
       href={`/listings/${l.id}`}
       className="group flex flex-col rounded-xl border border-slate-200 bg-surface p-5 shadow-sm transition hover:shadow-md"
     >
+      <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-lg bg-slate-100">
+        {l.imageUrl ? (
+          <Image
+            src={l.imageUrl}
+            alt={l.title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-4xl">🔋</div>
+        )}
+      </div>
       <div className="flex items-center justify-between gap-2 text-xs">
         <span className={`rounded-full px-2.5 py-1 font-semibold ${TYPE_STYLE[l.type]}`}>
           {LISTING_TYPE_LABEL[l.type]}
